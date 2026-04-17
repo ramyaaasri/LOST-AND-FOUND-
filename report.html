@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Item</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Report Lost/Found Item</h1>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="report.html">Report Item</a>
+</nav>
+
+<section class="container">
+  <form onsubmit="handleSubmit(event)">
+    
+    <label>Item Type</label>
+    <select id="type">
+      <option>Lost</option>
+      <option>Found</option>
+    </select>
+
+    <label>Item Name</label>
+    <input type="text" id="name" placeholder="Enter item name" required>
+
+    <label>Description</label>
+    <textarea id="desc" placeholder="Describe the item" required></textarea>
+
+    <label>Location</label>
+    <input type="text" id="location" placeholder="Where was it lost/found" required>
+
+    <label>Date</label>
+    <input type="date" id="date" required>
+
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+<footer>
+  <p>Stay honest. Help others.</p>
+</footer>
+
+<script>
+function handleSubmit(event) {
+  event.preventDefault();
+
+  const item = {
+    type: document.getElementById("type").value,
+    name: document.getElementById("name").value,
+    desc: document.getElementById("desc").value,
+    location: document.getElementById("location").value,
+    date: document.getElementById("date").value
+  };
+
+  let items = JSON.parse(localStorage.getItem("lostItems")) || [];
+  items.push(item);
+  localStorage.setItem("lostItems", JSON.stringify(items));
+
+  alert("Item submitted successfully!");
+
+  document.querySelector("form").reset();
+}
+</script>
+
+</body>
+</html>
